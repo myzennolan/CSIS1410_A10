@@ -1,0 +1,53 @@
+
+		/*
+		JButton btnMovie = new JButton("");
+		btnMovie.setIcon(new ImageIcon(movies.get(0).poster.getImage().getScaledInstance(100, 150, 0)));
+		btnMovie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtrTextaboutmovies.setText(movies.get(0).name+"\n"
+						+ movies.get(0).description+"\n");
+			}
+		});
+		panel.add(btnMovie);
+
+		
+		JButton btnMovie_1 = new JButton("");
+		btnMovie_1.setIcon(new ImageIcon(movies.get(1).poster.getImage().getScaledInstance(100, 150, 0)));
+		btnMovie_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtrTextaboutmovies.setText(movies.get(1).name+"\n"
+						+ movies.get(1).description+"\n");
+			}
+		});
+		panel.add(btnMovie_1);
+		
+		JButton btnMovie_2 = new JButton("");
+		btnMovie_2.setIcon(new ImageIcon(movies.get(2).poster.getImage().getScaledInstance(100, 150, 0)));
+		btnMovie_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtrTextaboutmovies.setText(movies.get(2).name+"\n"
+						+ movies.get(2).description+"\n");
+			}
+		});
+		panel.add(btnMovie_2);
+		
+		JButton btnMovie_3 = new JButton("");
+		btnMovie_3.setIcon(new ImageIcon(movies.get(3).poster.getImage().getScaledInstance(100, 150, 0)));
+		btnMovie_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtrTextaboutmovies.setText(movies.get(3).name+"\n"
+						+ movies.get(3).description+"\n");
+			}
+		});
+		panel.add(btnMovie_3);
+		
+		JButton btnMovie_4 = new JButton("");
+		btnMovie_4.setIcon(new ImageIcon(movies.get(4).poster.getImage().getScaledInstance(100, 150, 0)));
+		btnMovie_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtrTextaboutmovies.setText(movies.get(4).name+"\n"
+						+ movies.get(4).description+"\n");
+			}
+		});
+		panel.add(btnMovie_4);
+		*/
