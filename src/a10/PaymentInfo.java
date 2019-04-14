@@ -69,4 +69,8 @@ public class PaymentInfo extends JFrame {
 		txtExpDate.setColumns(10);
 	}
 
+	public PaymentInfo(ShoppingCart shoppingCart) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

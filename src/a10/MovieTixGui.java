@@ -55,9 +55,8 @@ public class MovieTixGui extends JFrame {
 	private JTextField txttix = new JTextField();
 	public 	JLabel lblMoviePoster = new JLabel("");
 	public 	Movie currentMovie;
-	public Map<String,Integer> shoppingCart = new TreeMap<String,Integer>();
-	public static double cartTotal = 0.0d;
-	public static double moviePrice = 5.0d;
+	//public Map<String,Integer> shoppingCart = new TreeMap<String,Integer>();
+	public static ShoppingCart shoppingCart = new ShoppingCart();
 	public static JTextArea lblReceipt = new JTextArea("Receipt");
 	public JTextArea txtrTextaboutmovies = new JTextArea();
 	public JPanel movieSelectionPanel = new JPanel();
@@ -208,8 +207,9 @@ public class MovieTixGui extends JFrame {
 				if(currentMovie == null) {
 				}
 				else {
-					shoppingCart.put(currentMovie.name, Integer.decode(txttix.getText()));
-					cartParser(shoppingCart);					
+					shoppingCart.addMovieTickets(currentMovie.name, Integer.decode(txttix.getText()));
+
+					lblReceipt.setText(shoppingCart.toString());				
 				}
 			}
 
@@ -237,8 +237,7 @@ public class MovieTixGui extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				txtrTextaboutmovies.setText("Please select a movie");
 				lblReceipt.setText("receipt.details");
-				shoppingCart.clear();
-				cartTotal = 0.0d;
+				shoppingCart.resetCart();
 				txttix.setText("1");
 				lblMoviePoster.setIcon(null);
 				currentMovie = null;
@@ -279,6 +278,7 @@ public class MovieTixGui extends JFrame {
 	 * @param sCart
 	 */
 	public static void cartParser(Map<String,Integer> sCart) {
+		/*
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 		StringBuilder rcpt = new StringBuilder();
 		cartTotal =0.0d;
@@ -286,7 +286,8 @@ public class MovieTixGui extends JFrame {
 			rcpt.append(m.getKey()+"("+m.getValue()+") - "+formatter.format(m.getValue()*moviePrice)+"\n");
 			cartTotal += m.getValue()*moviePrice;
 		}
-		lblReceipt.setText(rcpt.toString());
+		*/
+		lblReceipt.setText(shoppingCart.toString());
 	}
 	
 	/**
@@ -338,7 +339,7 @@ public class MovieTixGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PaymentInfo frame = new PaymentInfo(lblReceipt.getText(),cartTotal);
+					PaymentInfo frame = new PaymentInfo(shoppingCart.toString(),shoppingCart.getCartTotal());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
