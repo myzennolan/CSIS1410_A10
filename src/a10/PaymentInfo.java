@@ -37,10 +37,10 @@ public class PaymentInfo {
 	public void saveRcpt(String content) 
 		throws IOException {
 		    String str = "Hello";
-		    BufferedWriter writer = new BufferedWriter(new FileWriter("testfile.txt"));
-		    writer.write(str);
+		    BufferedWriter rcptWriter = new BufferedWriter(new FileWriter("testfile.txt"));
+		    rcptWriter.write(str);
 		     
-		    writer.close();
+		    rcptWriter.close();
 		
 	}
 	
