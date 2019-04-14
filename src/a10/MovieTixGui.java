@@ -339,7 +339,7 @@ public class MovieTixGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PaymentInfo frame = new PaymentInfo(shoppingCart.toString(),shoppingCart.getCartTotal());
+					PaymentInfoGui frame = new PaymentInfoGui(shoppingCart.toString(),shoppingCart.getCartTotal());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

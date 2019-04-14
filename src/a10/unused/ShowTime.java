@@ -1,6 +1,8 @@
-package a10;
+package a10.unused;
 
 import java.time.LocalTime;
+
+import a10.Movie;
 
 public class ShowTime {
 	public Movie movie;

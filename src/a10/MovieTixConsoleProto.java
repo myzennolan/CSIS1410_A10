@@ -15,6 +15,8 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import a10.unused.Theatre;
+
 public class MovieTixConsoleProto {
 	
 	public static Theatre the1 = new Theatre("Dimension 35C", 12);
