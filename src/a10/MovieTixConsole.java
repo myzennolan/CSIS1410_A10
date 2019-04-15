@@ -54,7 +54,7 @@ public class MovieTixConsole {
 	
 	public static ArrayList<Movie> movieLoader(){
 
-		URL tsvFile = MovieTixConsole.class.getResource("/resources/movies.tsv");
+		URL tsvFile = MovieTixConsole.class.getClass().getResource("/resources/movies.tsv");
         BufferedReader br = null;
         String line = ""; // line storage
         String cvsSplitBy = "\t";   // use tab as separator

@@ -2,6 +2,17 @@ package a10;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Movie Class for describing individual movies and provisioning an ImageIcon resource for use in GUI applications.
+ * @author Jennifer Snider and Nolan Harris
+ *
+ *@param name String
+ *@param rating String
+ *@param runTime String
+ *@param description String
+ *@param poster ImageIcon
+ *
+ */
 public class Movie {
 	public String name;
 	public String rating;

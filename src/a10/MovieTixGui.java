@@ -16,14 +16,11 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
-import java.text.NumberFormat;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -47,9 +44,13 @@ import java.awt.Color;
  * @param movieSelectionPanel JPanel
  * @param cartControlPanel JPanel;
  */
-@SuppressWarnings("serial")
 public class MovieTixGui extends JFrame {
 
+	/**
+	 * serial
+	 */
+	private static final long serialVersionUID = 6146364488978039808L;
+	
 	private int counter = 1;
 	private JPanel contentPane = new JPanel();
 	private JTextField txttix = new JTextField();
@@ -287,15 +288,14 @@ public class MovieTixGui extends JFrame {
 	 */
 	public static ArrayList<Movie> movieLoader(){
 
-		URL tsvFile = MovieTixGui.class.getResource("/resources/movies.tsv");
+		InputStream tsvFile = MovieTixGui.class.getClass().getResourceAsStream("/resources/movies.tsv");
         BufferedReader br = null;
         String line = ""; // line storage
         String cvsSplitBy = "\t";   // use tab as separator
         ArrayList<Movie> movies = new ArrayList<Movie>();
 
         try {
-
-            br = new BufferedReader(new FileReader(tsvFile.getFile()));
+        	br = new BufferedReader(new InputStreamReader(tsvFile));
             while ((line = br.readLine()) != null) {
 
               

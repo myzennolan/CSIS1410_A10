@@ -26,6 +26,7 @@ public class PaymentInfo {
 		}
 	}
 	
+	@SuppressWarnings("hiding")
 	public void processPayment(ShoppingCart sCart,String fileName) {
 		
 		

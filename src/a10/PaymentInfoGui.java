@@ -1,6 +1,5 @@
 package a10;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -9,9 +8,6 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.text.NumberFormat;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -20,27 +16,22 @@ import javax.swing.JLabel;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 public class PaymentInfoGui extends JFrame {
 
+	/**
+	 * Serial 
+	 */
+	private static final long serialVersionUID = 1617001722376899556L;
+	
 private JPanel contentPane;
-private JTextField txtEnterPaymentInformation;
 private JTextField textField_cardNo;
-private JTextField textField_expMonth;
 private JTextField textField_name;
 private JTextField textField_filename;
 private JTextField textField_zip;
-private JTextField txtSaveReceipt;
 private JTextField textField_secCode;
-private JTextField textField_expYear;
-private String r;
-private Double c;
 
 
 	/**
@@ -158,7 +149,7 @@ private Double c;
 		gbc_month.gridy = 4;
 		month.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String s = (String) month.getSelectedItem();
+				month.getSelectedItem();
 				
 			}
 		});
@@ -177,7 +168,7 @@ private Double c;
 		gbc_year.gridy = 4;
 		year.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String s = (String) year.getSelectedItem();
+				year.getSelectedItem();
 				
 			}
 		});
