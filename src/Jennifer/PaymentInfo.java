@@ -1,4 +1,4 @@
-package a10;
+package Jennifer;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -27,7 +27,7 @@ import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class PaymentInfoGui extends JFrame {
+public class PaymentInfo extends JFrame {
 
 private JPanel contentPane;
 private JTextField txtEnterPaymentInformation;
@@ -49,9 +49,7 @@ private Double c;
 	 * @param ct references the cart total built by aggregating purchases for separate movies during the
 	 * same purchasing session 
 	 */
-	public PaymentInfoGui(String rcpt, Double ct, ShoppingCart sCart) {
-		PaymentInfo pInfo = new PaymentInfo();
-		
+	public PaymentInfo(String rcpt, Double ct) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -244,8 +242,23 @@ private Double c;
 		gbc_btnSaveReceipt.gridy = 8;
 		btnSaveReceipt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pInfo.processPayment(sCart,"movieticketreceipt.txt");
-				textField_filename.setText("movieticketreceipt.txt");	
+				boolean done = false;
+				do 
+				{
+					try {
+						PrintWriter out = new PrintWriter("movieticketreceipt.txt");
+						NumberFormat formatter = NumberFormat.getCurrencyInstance();
+						out.println("MovieTix" + "\n\n" + rcpt + "\n\n" + "Total: " + formatter.format(ct) + "\n\n");
+						done = true;
+						out.close();
+						textField_filename.setText("movieticketreceipt.txt");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					System.out.println("A problem occurred: " + e.getMessage());
+				}
+				
+				}  while(!done);	
 				
 			}
 		});
@@ -319,3 +332,10 @@ private Double c;
 
 
 }
+
+
+
+	
+
+
+				

@@ -1,4 +1,6 @@
-package a10;
+package Jennifer;
+import a10.MovieTixConsole;
+import a10.Movie;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -20,49 +22,27 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 
-/**
- * Allows user to select and purchase tickets from a predefined list of movies loaded from a formatted text file.
- * 
- * @author Jennifer Snider and Nolan Harris
- *
- * @param counter int
- * @param cartTotal double
- * @param moviePrice double
- * @param currentMovie Movie
- * @param contentPane JPanel
- * @param txttix JTextField
- * @param lblMoviePoster JLabel
- * @param shoppingCart TreeMap<String,Integer>
- * @param lblReceipt JTextArea
- * @param txtrTextaboutmovies JTextArea
- * @param movieSelectionPanel JPanel
- * @param cartControlPanel JPanel;
- */
 @SuppressWarnings("serial")
 public class MovieTixGui extends JFrame {
 
+	private JPanel contentPane;
+	private JTextField txttix;
 	private int counter = 1;
-	private JPanel contentPane = new JPanel();
-	private JTextField txttix = new JTextField();
 	public 	JLabel lblMoviePoster = new JLabel("");
 	public 	Movie currentMovie;
-	//public Map<String,Integer> shoppingCart = new TreeMap<String,Integer>();
-	public static ShoppingCart shoppingCart = new ShoppingCart();
+	public Map<String,Integer> shoppingCart = new TreeMap<String,Integer>();
+	public static Double cartTotal = 0.0d;
+	public static Double moviePrice = 5.0d;
 	public static JTextArea lblReceipt = new JTextArea("Receipt");
-	public JTextArea txtrTextaboutmovies = new JTextArea();
-	public JPanel movieSelectionPanel = new JPanel();
-	public JPanel cartControlPanel = new JPanel();
-	
-	
 	
 
 	/**
@@ -82,93 +62,47 @@ public class MovieTixGui extends JFrame {
 	}
 
 	/**
-	 * Builds the main GUI.
+	 * Create the frame.
 	 */
 	public MovieTixGui() {
 		ArrayList<Movie> movies = movieLoader();
-		
-		buildWindow();
-		
-		setupCenter();
-		
-		setupWest();
-		
-		setupNorth(movies);
-		
-		setupEast();
-		
-		setupSouth();
-		
-		controlButtons();
-		
-		
-	}
-
-	/**
-	 * Sets up the JFrame and configures its properties.
-	 */
-	private void buildWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 550);
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-	}
-
-	/**
-	 * Places our cart control panel in the south.
-	 */
-	private void setupSouth() {
-		contentPane.add(cartControlPanel, BorderLayout.SOUTH);
-	}
-
-	/**
-	 * Places our receipt representation in the east.
-	 */
-	private void setupEast() {
-		lblReceipt.setBackground(Color.LIGHT_GRAY);
-		lblReceipt.setPreferredSize(new Dimension(250,100));
-		contentPane.add(lblReceipt, BorderLayout.EAST);
-	}
-
-	/**
-	 * Accepts a list of movies and adds them as buttons to the movieSelectionPanel, in the North
-	 * 
-	 * @param movies ArrayList<Movie>
-	 */
-	private void setupNorth(ArrayList<Movie> movies) {
-		contentPane.add(movieSelectionPanel, BorderLayout.NORTH);		
-		movieButtons(movies, txtrTextaboutmovies, movieSelectionPanel);
-	}
-
-	/**
-	 * Places a Giant Movie Poster Target in the west, this poster is updated when users click on the movie buttons.
-	 */
-	private void setupWest() {
-		lblMoviePoster.setPreferredSize(new Dimension(200, 300));
-		contentPane.add(lblMoviePoster, BorderLayout.WEST);
-	}
-
-	/**
-	 * Places our movie details box in the center.
-	 */
-	private void setupCenter() {
+		
+		/**
+		 * jtextarea that shows title, rating, runtime and description of each movie
+		*/
+		JTextArea txtrTextaboutmovies = new JTextArea();
 		txtrTextaboutmovies.setColumns(30);
 		txtrTextaboutmovies.setEditable(false);
 		txtrTextaboutmovies.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		txtrTextaboutmovies.setWrapStyleWord(true);
 		txtrTextaboutmovies.setLineWrap(true);
-		txtrTextaboutmovies.setText("Please select a movie");		
+		txtrTextaboutmovies.setText("Please select a movie");
 		contentPane.add(txtrTextaboutmovies, BorderLayout.CENTER);
-	}
-
-	/**
-	 * Creates, configures, and places, our control buttons where they belong.
-	 */
-	private void controlButtons() {
+		lblMoviePoster.setPreferredSize(new Dimension(200, 300));
+		contentPane.add(lblMoviePoster, BorderLayout.WEST);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
 		
 		/**
-		 * Increments the number of tickets desired
+		 * sizes the movie pictures
+		 */
+		movieButtons(movies, txtrTextaboutmovies, panel);
+		lblReceipt.setBackground(Color.LIGHT_GRAY);
+		lblReceipt.setPreferredSize(new Dimension(250,100));
+		contentPane.add(lblReceipt, BorderLayout.EAST);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		
+		/**
+		 * arrow to increment the number of tickets to buy
 		 */
 		BasicArrowButton babUp = new BasicArrowButton(SwingConstants.NORTH);
 		babUp.addActionListener(new ActionListener() {
@@ -178,10 +112,10 @@ public class MovieTixGui extends JFrame {
 				
 			}
 		});
-		cartControlPanel.add(babUp);
+		panel_1.add(babUp);
 		
 		/**
-		 * Decrements the number of tickets desired
+		 * arrow to decrement the number of tickets to buy
 		 */
 		BasicArrowButton babDown = new BasicArrowButton(SwingConstants.SOUTH);
 		babDown.addActionListener(new ActionListener() {
@@ -191,68 +125,81 @@ public class MovieTixGui extends JFrame {
 				txttix.setText("" + counter);
 			}
 		});
-		cartControlPanel.add(babDown);
-		
-		txttix.setText("1");
-		cartControlPanel.add(txttix);
-		txttix.setColumns(10);
-
+		panel_1.add(babDown);
 		
 		/**
-		 * Adds the chosen number of tickets for the selected movie to the shoppingCart.
+		 * textfield showing the number of tickets selected to buy, this field increments
+		 * and decrements in value when the user pushes the up and down arrow buttons
+		 */
+		txttix = new JTextField();
+		txttix.setText("1");
+		panel_1.add(txttix);
+		txttix.setColumns(10);
+		txttix.setEditable(false); 
+		
+		/**
+		 * add to cart button moves the user's selection to the shopping cart
 		 */
 		JButton btnAddtocart = new JButton("Add to Cart");
 		btnAddtocart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(currentMovie == null) {
-				}
-				else {
-					shoppingCart.addMovieTickets(currentMovie.name, Integer.decode(txttix.getText()));
-
-					lblReceipt.setText(shoppingCart.toString());				
-				}
+				shoppingCart.put(currentMovie.name, Integer.decode(txttix.getText()));
+				cartParser(shoppingCart);
 			}
 
+			/**
+			 * @return
+			 */
+			
 		});
-		cartControlPanel.add(btnAddtocart);
-
+		panel_1.add(btnAddtocart);
 		
 		/**
-		 * Displays the checkout window
+		 * checkout button which when selected takes the user to the payment screen
 		 */
 		JButton btnCheckout = new JButton("Checkout");
 		btnCheckout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			@SuppressWarnings("unused")
+			@Override
+				public void actionPerformed(ActionEvent e) {  
+				if (cartTotal > 0) {
 					displayCheckout();
-			}
-			
-		}); 
-		cartControlPanel.add(btnCheckout);
+				}
+				else
+					txtrTextaboutmovies.setText("Please make your selection");
+			 
+			 
+				}
+				
+			});
+	
+		
+		panel_1.add(btnCheckout);
 		
 		/**
-		 * Resets the shopping cart and screen elements to their original state.
+		 * reset button clears the user's selection from the shopping cart
 		 */
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtrTextaboutmovies.setText("Please select a movie");
-				lblReceipt.setText("receipt.details");
-				shoppingCart.resetCart();
+				lblReceipt.setText("No movie selected");
+				shoppingCart.clear();
 				txttix.setText("1");
-				lblMoviePoster.setIcon(null);
-				currentMovie = null;
+				cartTotal = 0.0d;
 				
 			}
 		});
-		cartControlPanel.add(btnReset);
+		panel_1.add(btnReset);
+		
+		
 	}
 
 	/**
-	 * Builds and configures the movie buttons to display their specific poster, and when clicked update the big poster and the movie details.
-	 * 
-	 * @param movies
-	 * @param txtrTextaboutmovies
-	 * @param panel
+	 * @param movies this is the array list of information from the input file
+	 * @param txtrTextaboutmovies is the area in the gui that holds the title, rating, runtime, and description 
+	 * from the input file 
+	 * @param panel holds the buttons which show the images of the movies
 	 */
 	private void movieButtons(ArrayList<Movie> movies, JTextArea txtrTextaboutmovies, JPanel panel) {
 		for(Movie m : movies){
@@ -262,10 +209,10 @@ public class MovieTixGui extends JFrame {
 			btnMovie.setIcon(new ImageIcon(m.poster.getImage().getScaledInstance(100, 150, 0)));
 			btnMovie.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					txtrTextaboutmovies.setText(m.name+" ("+ m.rating+") "+ m.runTime+"\n"
+					txtrTextaboutmovies.setText(m.name+"\n" +"("+ m.rating+") "+ "\n"+ m.runTime+"\n\n"
 							+ m.description+"\n");
 					lblMoviePoster.setIcon(new ImageIcon(m.poster.getImage().getScaledInstance(200, 300, 0)));
-					currentMovie = m;
+					currentMovie = m; 
 				}
 			});
 			panel.add(btnMovie);
@@ -273,21 +220,11 @@ public class MovieTixGui extends JFrame {
 	}
 	
 	/**
-	 * Updates receipt with formatted view of shoppingCart
-	 * 
-	 * @param sCart
-	 */
-	public static void cartParser(Map<String,Integer> sCart) {
-		lblReceipt.setText(shoppingCart.toString());
-	}
-	
-	/**
-	 * Parses movies.tsv file and returns an ArrayList<Movie> built for the items in the file.
-	 * @return ArrayList<Movie>
+	 * @returns the parsed data from the input file
 	 */
 	public static ArrayList<Movie> movieLoader(){
 
-		URL tsvFile = MovieTixGui.class.getResource("/resources/movies.tsv");
+		URL tsvFile = MovieTixConsole.class.getResource("/resources/movies.tsv");
         BufferedReader br = null;
         String line = ""; // line storage
         String cvsSplitBy = "\t";   // use tab as separator
@@ -300,8 +237,7 @@ public class MovieTixGui extends JFrame {
 
               
                 String[] movie = line.split(cvsSplitBy);
-                movies.add(new Movie(movie[0],movie[1],new ImageIcon(MovieTixGui.class.getResource(movie[4])),movie[2],movie[3]));
-
+                movies.add(new Movie(movie[0],movie[1],new ImageIcon(MovieTixConsole.class.getResource(movie[4])),movie[2],movie[3]));
             }
 
         } catch (FileNotFoundException e) {
@@ -321,15 +257,29 @@ public class MovieTixGui extends JFrame {
 		return movies;
 		
 	}
-	
 	/**
-	 * Initializes and displays the PaymentInfo frame, passing through the text representation of the receipt and the total dollar value of the cart.
+	 * 
+	 * @param sCart builds the shopping cart of the user's purchases (#tix x price = total)
+	 */
+	public static void cartParser(Map<String,Integer> sCart) {
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		StringBuilder rcpt = new StringBuilder();
+		cartTotal = 0.0d;
+		for(Entry<String,Integer> m:sCart.entrySet()) {
+		rcpt.append(m.getKey()+": " +m.getValue() + " x " + formatter.format(moviePrice) + " = " + formatter.format(m.getValue()*moviePrice)+"\n\n");
+		cartTotal += m.getValue()*moviePrice;
+		}
+		lblReceipt.setText(rcpt.toString());
+		}
+
+	/**
+	 * creates the second gui which is the payment screen to take the credit card information
 	 */
 	public static void displayCheckout() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PaymentInfoGui frame = new PaymentInfoGui(shoppingCart.toString(),shoppingCart.getCartTotal(),shoppingCart);
+					PaymentInfo frame = new PaymentInfo(lblReceipt.getText(),cartTotal);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -337,5 +287,4 @@ public class MovieTixGui extends JFrame {
 			}
 		});
 	}
-	
 }
