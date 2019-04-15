@@ -19,6 +19,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+/**
+ * 
+ * A payment processing GUI that accepts user input payment details and exports receipt to a text file.
+ * 
+ * @author Jennifer Snider and Nolan Harris
+ *
+ */
 public class PaymentInfoGui extends JFrame {
 
 	/**

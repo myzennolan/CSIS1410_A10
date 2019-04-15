@@ -9,23 +9,21 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * PaymentInfo class provides file saving functionality
+ * 
+ * @author Jennifer Snider and Nolan Harris
+ *
+ */
 public class PaymentInfo {
-	public Map<String,String> payDetails = new HashMap<String,String>();
 	
 	public PaymentInfo() {
 		
 	}
 	
-	public void setDetails(String key, String value) {
-
-		if(payDetails.containsKey(key)) {
-			payDetails.replace(key, value);
-		}
-		else {
-			payDetails.put(key, value);
-		}
-	}
-	
+	/*
+	 * Exports shoppingCart to text file
+	 */
 	@SuppressWarnings("hiding")
 	public void processPayment(ShoppingCart sCart,String fileName) {
 		
@@ -47,16 +45,6 @@ public class PaymentInfo {
 		
 		}  while(!done);	
 		
-		
-	}
-	
-	public void saveRcpt(String content) 
-		throws IOException {
-		    String str = "Hello";
-		    BufferedWriter rcptWriter = new BufferedWriter(new FileWriter("testfile.txt"));
-		    rcptWriter.write(str);
-		     
-		    rcptWriter.close();
 		
 	}
 	
