@@ -1,13 +1,9 @@
 package a10;
 
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * PaymentInfo class provides file saving functionality
